@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Pat-a-Tap</title>
+        <script type="text/javascript" src="howler.js"></script>
+    <script type="text/javascript" src="paper-full.js"></script>
+
+    <link rel="stylesheet" href="patatap.css">
+    <!-- Define inlined PaperScript associate it with myCanvas -->
+    <script type="text/paperscript" canvas="myCanvas">
+    var keyData = {
+        a: {
+            color: 'purple',
+            sound: new Howl({
+                src: ['sound/bubbles.mp3']
+            })
+        },
+        s: {
+            color: 'green',
+            sound: new Howl({
+                src: ['sound/clay.mp3']
+            })
+        },
+        d: {
+            color: 'yellow',
+            sound: new Howl({
+                src: ['sound/confetti.mp3']
+            })
+        },
+        f: {
+            color: 'pink',
+            sound: new Howl({
+                src: ['sound/corona.mp3']
+            })
+        },
+        g: {
+            color: 'grey',
+            sound: new Howl({
+                src: ['sound/dotted-spiral.mp3']
+            })
+        },
+        h: {
+            color: 'red',
+            sound: new Howl({
+                src: ['sound/flash-1.mp3']
+            })
+        },
+        j: {
+            color: 'blue',
+            sound: new Howl({
+                src: ['sound/moon.mp3']
+            })
+        },
+        k: {
+            color: 'yellow',
+            sound: new Howl({
+                src: ['sound/pinwheel.mp3']
+            })
+        },
+        l: {
+            color: 'green',
+            sound: new Howl({
+                src: ['sound/flash-2.mp3']
+            })
+        },
+        q: {
+            color: 'purple',
+            sound: new Howl({
+                src: ['sound/flash-3.mp3']
+            })
+        },
+        w: {
+            color: 'navy',
+            sound: new Howl({
+                src: ['sound/piston-1.mp3']
+            })
+        },
+        z: {
+            color: 'yellow',
+            sound: new Howl({
+                src: ['sound/piston-2.mp3']
+            })
+        },
+        v: {
+            color: 'magenta',
+            sound: new Howl({
+                src: ['sound/piston-3.mp3']
+            })
+        },
+        e: {
+            color: 'yellow',
+            sound: new Howl({
+                src: ['sound/prism-1.mp3']
+            })
+        },
+        x: {
+            color: 'red',
+            sound: new Howl({
+                src: ['sound/prism-2.mp3']
+            })
+        },
+        b: {
+            color: 'yellow',
+            sound: new Howl({
+                src: ['sound/splits.mp3']
+            })
+        },
+        m: {
+            color: 'pink',
+            sound: new Howl({
+                src: ['sound/squiggle.mp3']
+            })
+        },
+        n: {
+            color: 'blue',
+            sound: new Howl({
+                src: ['sound/prism-3.mp3']
+            })
+        },
+        r: {
+            color: 'yellow',
+            sound: new Howl({
+                src: ['sound/strike.mp3']
+            })
+        },
+        u: {
+            color: 'grey',
+            sound: new Howl({
+                src: ['sound/wipe.mp3']
+            })
+        },
+        p: {
+            color: 'yellow',
+            sound: new Howl({
+                src: ['sound/timer.mp3']
+            })
+        },
+        y: {
+            color: 'white',
+            sound: new Howl({
+                src: ['sound/ufo.mp3']
+            })
+        },
+    };
+
+
+    var circles = [];
+    function onKeyDown(event) {
+    // When a key is pressed, set the content of the text item:
+    // if(event.key === "a"){
+    //   sound1.play();
+    // }
+    // sound2.play();
+    if(keyData[event.key])
+    {
+      var maxPoint = new Point(view.size.width, view.size.height);
+      var randomPoint = Point.random();
+      var point = maxPoint * randomPoint;
+      var newCircle = new Path.Circle(point, 500);
+      newCircle.fillColor = keyData[event.key].color;  // end result is that we are pushing color name in the array and not a circle object
+      keyData[event.key].sound.play();
+      circles.push(newCircle);
+    }
+    }
+
+    // var animateCircle = new Path.Circle(new Point(300,300), 100);
+    // animateCircle.fillColor = "red";
+    function onFrame(event) {
+    	for(var i=0; i<circles.length; i++)
+      {
+        circles[i].fillColor.hue += 1;
+        circles[i].scale(.90);
+      }
+    	// animateCircle.fillColor.hue += 1;
+      // animateCircle.scale(.90);
+    }
+
+    </script>
+  </head>
+  <body>
+    <canvas id="myCanvas" resize></canvas>
+  </body>
+</html>
